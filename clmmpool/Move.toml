@@ -1,0 +1,11 @@
+[package]
+name = "TucanaClmm"
+version = "0.0.0"
+
+[dependencies]
+InitiaStdlib = { git = "https://github.com/initia-labs/movevm.git", subdir = "precompile/modules/initia_stdlib", rev = "main" }
+TucanaStdlib = { local = "../../tucana-stdlib" }
+
+[addresses]
+std = "0x1"
+tucana_clmm = "0x8609f642a8ab1c13d661c14d733cab227bba15635a730af2057051b3f2ada3f6"
