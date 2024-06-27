@@ -3,18 +3,12 @@
 /// The "Partner" module introduces the "Partner" object.
 /// When a partner engages in a swap transaction, they provide this object and are entitled to receive a portion of the corresponding swap fee that is allocated to them.
 module tucana_clmm::partner {
-    use std::signer::address_of;
-    use std::string::{Self, String};
+    use std::string::{String};
 
-    use initia_std::block;
-    use initia_std::object;
-    use initia_std::object::{ExtendRef, Object, object_address};
+    use initia_std::object::{ExtendRef, Object};
     use initia_std::simple_map;
-    use initia_std::event;
     use initia_std::fungible_asset::{FungibleAsset, Metadata};
-    use initia_std::primary_fungible_store;
 
-    use tucana_clmm::config::{check_partner_manager_role};
 
 
     const MAX_PARTNER_FEE_RATE: u64 = 10000;
@@ -98,13 +92,13 @@ module tucana_clmm::partner {
     ///     - end_time: the partner valid end time.
     ///     - owner: the partner cap owner.
     public entry fun create_partner(
-        manager: &signer,
-        name: String,
-        ref_fee_rate: u64,
-        start_time: u64,
-        end_time: u64,
-        owner: address,
-    ) acquires Partners {
+        _manager: &signer,
+        _name: String,
+        _ref_fee_rate: u64,
+        _start_time: u64,
+        _end_time: u64,
+        _owner: address,
+    ) {
         abort 0
     }
 
@@ -113,10 +107,10 @@ module tucana_clmm::partner {
     ///     - partner: Object Partner
     ///     - new_fee_rate
     public entry fun update_ref_fee_rate(
-        manager: &signer,
-        partner: Object<Partner>,
-        new_fee_rate: u64,
-    ) acquires Partner {
+        _manager: &signer,
+        _partner: Object<Partner>,
+        _new_fee_rate: u64,
+    ) {
         abort 0
     }
 
@@ -126,11 +120,11 @@ module tucana_clmm::partner {
     ///     - start_time
     ///     - end_time
     public entry fun update_time_range(
-        manager: &signer,
-        partner: Object<Partner>,
-        start_time: u64,
-        end_time: u64,
-    ) acquires Partner {
+        _manager: &signer,
+        _partner: Object<Partner>,
+        _start_time: u64,
+        _end_time: u64,
+    ) {
         abort 0
     }
 
@@ -139,50 +133,50 @@ module tucana_clmm::partner {
     ///     - partner
     ///     - metadata
     public entry fun claim_ref_fee(
-        account: &signer,
-        partner: Object<Partner>,
-        metadata: Object<Metadata>
-    ) acquires Partner {
+        _account: &signer,
+        _partner: Object<Partner>,
+        _metadata: Object<Metadata>
+    ) {
         abort 0
     }
 
     /// Receive ref fee.
     /// This method is called when swap and partner is provided.
     public fun receive_ref_fee(
-        partner: Object<Partner>,
-        fa: FungibleAsset
+        _partner: Object<Partner>,
+        _fa: FungibleAsset
     ) {
         abort 0
     }
 
     #[view]
     /// Get partner name.
-    public fun name(partner: Object<Partner>): String acquires Partner {
+    public fun name(_partner: Object<Partner>): String {
         abort 0
     }
 
     #[view]
     /// get partner ref_fee_rate.
-    public fun ref_fee_rate(partner: Object<Partner>): u64 acquires Partner {
+    public fun ref_fee_rate(_partner: Object<Partner>): u64 {
         abort 0
     }
 
     #[view]
     /// get partner start_time.
-    public fun start_time(partner: Object<Partner>): u64 acquires Partner {
+    public fun start_time(_partner: Object<Partner>): u64  {
         abort 0
     }
 
     #[view]
     /// get partner end_time.
-    public fun end_time(partner: Object<Partner>): u64 acquires Partner {
+    public fun end_time(_partner: Object<Partner>): u64 {
         abort 0
     }
 
     /// check the parter is valid or not, and return the partner ref_fee_rate.
     public fun current_ref_fee_rate(
-        partner: Object<Partner>,
-    ): u64 acquires Partner {
+        _partner: Object<Partner>,
+    ): u64 {
         abort 0
     }
 }

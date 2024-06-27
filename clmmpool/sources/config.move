@@ -20,12 +20,9 @@
 /// 5. RewarderManager: The rewarder manager can add/remove rewarder, update rewarder fee rate.
 /// 6. Admin: The admin can add/remove acl role and member.
 module tucana_clmm::config {
-    use std::signer;
-
     use tucana_std::acl;
 
-    use initia_std::simple_map::{Self, SimpleMap};
-    use initia_std::event;
+    use initia_std::simple_map::SimpleMap;
 
     /// Max swap fee rate(100000 = 200000/1000000 = 20%)
     const MAX_FEE_RATE: u64 = 200000;
@@ -133,7 +130,7 @@ module tucana_clmm::config {
 
     // === Functions ===
     /// init `Config`
-    fun init_module(tucana: &signer) {
+    fun init_module(_tucana: &signer) {
         abort 0
     }
 
@@ -142,9 +139,9 @@ module tucana_clmm::config {
     ///     - manager: The pool manager signer
     ///     - protocol_fee_rate: The new protocol fee rate
     public entry fun update_protocol_fee_rate(
-        manager: &signer,
-        protocol_fee_rate: u64,
-    ) acquires Config {
+        _manager: &signer,
+        _protocol_fee_rate: u64,
+    )  {
         abort 0
     }
 
@@ -154,10 +151,10 @@ module tucana_clmm::config {
     ///     - tick_spacing: The tick spacing
     ///     - fee_rate: The fee rate
     public entry fun add_fee_tier(
-        manager: &signer,
-        tick_spacing: u32,
-        fee_rate: u64,
-    ) acquires Config {
+        _manager: &signer,
+        _tick_spacing: u32,
+        _fee_rate: u64,
+    )  {
         abort 0
     }
 
@@ -166,9 +163,9 @@ module tucana_clmm::config {
     ///     - manager: The manager signer
     ///     - tick_spacing: The tick spacing
     public entry fun delete_fee_tier(
-        manager: &signer,
-        tick_spacing: u32,
-    ) acquires Config {
+        _manager: &signer,
+        _tick_spacing: u32,
+    )  {
         abort 0
     }
 
@@ -178,10 +175,10 @@ module tucana_clmm::config {
     ///     - tick_spacing: The tick spacing
     ///     - new_fee_rate: The new fee rate
     public entry fun update_fee_tier(
-        manager: &signer,
-        tick_spacing: u32,
-        new_fee_rate: u64,
-    ) acquires Config {
+        _manager: &signer,
+        _tick_spacing: u32,
+        _new_fee_rate: u64,
+    )  {
         abort 0
     }
 
@@ -191,10 +188,10 @@ module tucana_clmm::config {
     ///     - member: The member address
     ///     - roles: The roles
     public entry fun set_roles(
-        manager: &signer,
-        member: address,
-        roles: u128
-    ) acquires Config {
+        _manager: &signer,
+        _member: address,
+        _roles: u128
+    )  {
         abort 0
     }
 
@@ -204,10 +201,10 @@ module tucana_clmm::config {
     ///     - member: The member address
     ///     - role: The role
     public entry fun add_role(
-        manager: &signer,
-        member: address,
-        role: u8
-    ) acquires Config {
+        _manager: &signer,
+        _member: address,
+        _role: u8
+    )  {
         abort 0
     }
 
@@ -217,10 +214,10 @@ module tucana_clmm::config {
     ///     - member: The member address
     ///     - role: The role
     public entry fun remove_role(
-        manager: &signer,
-        member: address,
-        role: u8
-    ) acquires Config {
+        _manager: &signer,
+        _member: address,
+        _role: u8
+    )  {
         abort 0
     }
 
@@ -229,78 +226,78 @@ module tucana_clmm::config {
     ///     - manager: The manager signer
     ///     - member: The member address
     public entry fun remove_member(
-        manager: &signer,
-        member: address
-    ) acquires Config {
+        _manager: &signer,
+        _member: address
+    )  {
         abort 0
     }
 
     /// Check member has pool manager role
-    public fun check_pool_manager_role(manager: &signer) acquires Config {
+    public fun check_pool_manager_role(_manager: &signer)  {
         abort 0
     }
 
     /// Check member has fee tier manager role
-    public fun check_fee_tier_manager_role(manager: &signer) acquires Config {
+    public fun check_fee_tier_manager_role(_manager: &signer)  {
         abort 0
     }
 
     /// Check member has protocol fee claim role
-    public fun check_protocol_fee_claim_role(manager: &signer) acquires Config {
+    public fun check_protocol_fee_claim_role(_manager: &signer)  {
         abort 0
     }
 
     /// Check member has partner manager role.
-    public fun check_partner_manager_role(manager: &signer) acquires Config {
+    public fun check_partner_manager_role(_manager: &signer)  {
         abort 0
     }
 
     /// Check member has rewarder manager role.
-    public fun check_rewarder_manager_role(manager: &signer) acquires Config {
+    public fun check_rewarder_manager_role(_manager: &signer)  {
         abort 0
     }
 
     /// Check member has admin role.
-    public fun check_admin_role(manager: &signer) acquires Config {
+    public fun check_admin_role(_manager: &signer)  {
         abort 0
     }
 
     /// Get member has pool manager role or not.
     public fun has_pool_manager_role(
-        account: &signer,
-    ): bool acquires Config {
+        _account: &signer,
+    ): bool  {
         abort 0
     }
 
     #[view]
     /// Get all members in ACL.
-    public fun get_members(): vector<acl::Member> acquires Config {
+    public fun get_members(): vector<acl::Member>  {
         abort 0
     }
 
     #[view]
     /// Get the protocol fee rate
-    public fun get_protocol_fee_rate(): u64 acquires Config {
+    public fun get_protocol_fee_rate(): u64  {
         abort 0
     }
 
     #[view]
     /// Get FeeTier by tick_spacing
-    public fun get_fee_tier(tick_spacing: u32): FeeTier acquires Config {
+    public fun get_fee_tier(_tick_spacing: u32): FeeTier  {
         abort 0
     }
 
     #[view]
     /// Get all FeeTiers
-    public fun get_fee_tiers(): SimpleMap<u32, FeeTier> acquires Config {
+    public fun get_fee_tiers(): SimpleMap<u32, FeeTier>  {
         abort 0
     }
 
     #[view]
     /// Get fee rate by tick spacing
     public fun get_fee_rate(
-        tick_spacing: u32,
-    ): u64 acquires Config {
+        _tick_spacing: u32,
+    ): u64  {
         abort 0
     }
 

@@ -10,33 +10,17 @@
 /// "Pool" is the core module of Clmm protocol, which defines the trading pairs of "clmmpool".
 /// All operations related to trading and liquidity are completed by this module.
 module tucana_clmm::pool {
-    use std::bcs;
-    use std::signer;
-    use std::signer::address_of;
     use std::string::String;
-    use std::vector;
-    use initia_std::comparator;
-    use initia_std::fungible_asset::{Self, FungibleStore, Metadata, FungibleAsset};
-    use initia_std::object::{Self, ExtendRef, Object, object_address, generate_signer_for_extending};
-    use initia_std::event::emit;
-    use initia_std::primary_fungible_store;
-    use initia_std::simple_map::{Self, SimpleMap};
+    use initia_std::fungible_asset::{FungibleStore, Metadata, FungibleAsset};
+    use initia_std::object::{ExtendRef, Object};
+    use initia_std::simple_map::{SimpleMap};
 
+    use tucana_std::i32::{I32};
 
-    use tucana_std::option_u64;
-    use tucana_std::i32::{Self, I32};
-    use tucana_std::i128::{Self, is_neg, abs_u128};
-    use tucana_std::math_u128;
-    use tucana_std::full_math_u64;
-    use tucana_std::math_u64;
-
-    use tucana_clmm::tick::{Self, Tick, TickManager};
-    use tucana_clmm::tick_math::{Self, min_sqrt_price, max_sqrt_price};
-    use tucana_clmm::partner::{Self, Partner};
-    use tucana_clmm::rewarder::{Self, RewarderManager};
-    use tucana_clmm::position::{Self, PositionNftCollection, PositionNft};
-    use tucana_clmm::config;
-    use tucana_clmm::clmm_math;
+    use tucana_clmm::tick::{Tick, TickManager};
+    use tucana_clmm::partner::{Partner};
+    use tucana_clmm::rewarder::{RewarderManager};
+    use tucana_clmm::position::{PositionNftCollection, PositionNft};
 
     friend tucana_clmm::factory;
 
@@ -292,9 +276,9 @@ module tucana_clmm::pool {
 
     #[view]
     public fun pool_seed(
-        metadata_a: Object<Metadata>,
-        metadata_b: Object<Metadata>,
-        tick_spacing: u32
+        _metadata_a: Object<Metadata>,
+        _metadata_b: Object<Metadata>,
+        _tick_spacing: u32
     ): address {
         abort 0
     }
@@ -311,13 +295,13 @@ module tucana_clmm::pool {
     /// while the denominator is always 1,000,000. For example, 1000 represents 0.1% or 1000/1000000.
     ///     - position_uri
     public(friend) fun new(
-        creator: &signer,
-        metadata_a: Object<Metadata>,
-        metadata_b: Object<Metadata>,
-        tick_spacing: u32,
-        init_sqrt_price: u128,
-        fee_rate: u64,
-        position_uri: String
+        _creator: &signer,
+        _metadata_a: Object<Metadata>,
+        _metadata_b: Object<Metadata>,
+        _tick_spacing: u32,
+        _init_sqrt_price: u128,
+        _fee_rate: u64,
+        _position_uri: String
     ): Object<Pool> {
         abort 0
     }
@@ -336,11 +320,11 @@ module tucana_clmm::pool {
     /// return
     ///     The position NFT
     public fun open_position(
-        account: &signer,
-        pool: Object<Pool>,
-        tick_lower: u32,
-        tick_upper: u32,
-    ): Object<PositionNft> acquires Pool {
+        _account: &signer,
+        _pool: Object<Pool>,
+        _tick_lower: u32,
+        _tick_upper: u32,
+    ): Object<PositionNft>  {
         abort 0
     }
 
@@ -353,9 +337,9 @@ module tucana_clmm::pool {
     /// return
     ///     AddLiquidityReceipt
     public fun add_liquidity(
-        position_nft: Object<PositionNft>,
-        delta_liquidity: u128,
-    ): AddLiquidityReceipt acquires Pool {
+        _position_nft: Object<PositionNft>,
+        _delta_liquidity: u128,
+    ): AddLiquidityReceipt  {
         abort 0
     }
 
@@ -367,15 +351,15 @@ module tucana_clmm::pool {
     /// return
     ///     AddLiquidityReceipt
     public fun add_liquidity_fix_coin(
-        position_nft: Object<PositionNft>,
-        amount: u64,
-        fix_amount_a: bool,
-    ): AddLiquidityReceipt acquires Pool {
+        _position_nft: Object<PositionNft>,
+        _amount: u64,
+        _fix_amount_a: bool,
+    ): AddLiquidityReceipt  {
         abort 0
     }
 
     public fun add_liquidity_pay_amount(
-        receipt: &AddLiquidityReceipt
+        _receipt: &AddLiquidityReceipt
     ): (u64, u64) {
         abort 0
     }
@@ -386,10 +370,10 @@ module tucana_clmm::pool {
     ///     - `offer_coin_a`
     ///     - `offer_coin_b`
     public fun repay_add_liquidity(
-        receipt: AddLiquidityReceipt,
-        offer_coin_a: FungibleAsset,
-        offer_coin_b: FungibleAsset,
-    ) acquires Pool {
+        _receipt: AddLiquidityReceipt,
+        _offer_coin_a: FungibleAsset,
+        _offer_coin_b: FungibleAsset,
+    )  {
         abort 0
     }
 
@@ -400,10 +384,10 @@ module tucana_clmm::pool {
     /// Return
     ///     the assets
     public fun remove_liquidity(
-        account: &signer,
-        position_nft: Object<PositionNft>,
-        delta_liquidity: u128,
-    ): (FungibleAsset, FungibleAsset) acquires Pool {
+        _account: &signer,
+        _position_nft: Object<PositionNft>,
+        _delta_liquidity: u128,
+    ): (FungibleAsset, FungibleAsset)  {
         abort 0
     }
 
@@ -415,9 +399,9 @@ module tucana_clmm::pool {
     /// Return
     ///     Null
     public fun close_position(
-        account: &signer,
-        position_nft: Object<PositionNft>,
-    ) acquires Pool {
+        _account: &signer,
+        _position_nft: Object<PositionNft>,
+    )  {
         abort 0
     }
 
@@ -433,10 +417,10 @@ module tucana_clmm::pool {
     /// Returns:
     ///     the return assets
     public fun collect_fee(
-        account: &signer,
-        position_nft: Object<PositionNft>,
-        recalculate: bool,
-    ): (FungibleAsset, FungibleAsset) acquires Pool {
+        _account: &signer,
+        _position_nft: Object<PositionNft>,
+        _recalculate: bool,
+    ): (FungibleAsset, FungibleAsset)  {
         abort 0
     }
 
@@ -446,9 +430,9 @@ module tucana_clmm::pool {
     /// Returns:
     ///   the return asssets
     public fun collect_rewards(
-        account: &signer,
-        position_nft: Object<PositionNft>,
-    ): vector<FungibleAsset> acquires Pool {
+        _account: &signer,
+        _position_nft: Object<PositionNft>,
+    ): vector<FungibleAsset>  {
         abort 0
     }
 
@@ -462,32 +446,32 @@ module tucana_clmm::pool {
     ///     - `amount` The amount that indicates input or output.
     ///     - `sqrt_price_limit` Price limit, if the swap causes the price to it value, the swap will stop here and return
     public fun flash_swap(
-        pool: Object<Pool>,
-        a2b: bool,
-        by_amount_in: bool,
-        amount: u64,
-        sqrt_price_limit: u128,
-    ): (FungibleAsset, FlashSwapReceipt) acquires Pool {
+        _pool: Object<Pool>,
+        _a2b: bool,
+        _by_amount_in: bool,
+        _amount: u64,
+        _sqrt_price_limit: u128,
+    ): (FungibleAsset, FlashSwapReceipt)  {
         abort 0
     }
 
     /// Flash swap with partner, like flash swap but there has a partner object for receive ref fee.
     public fun flash_swap_with_partner(
-        pool: Object<Pool>,
-        partner: Object<Partner>,
-        a2b: bool,
-        by_amount_in: bool,
-        amount: u64,
-        sqrt_price_limit: u128,
-    ): (FungibleAsset, FlashSwapReceipt) acquires Pool {
+        _pool: Object<Pool>,
+        _partner: Object<Partner>,
+        _a2b: bool,
+        _by_amount_in: bool,
+        _amount: u64,
+        _sqrt_price_limit: u128,
+    ): (FungibleAsset, FlashSwapReceipt)  {
         abort 0
     }
 
     /// Repay for flash swap with partner for receive ref fee.
     public fun repay_flash_swap(
-        receipt: FlashSwapReceipt,
-        offer_coin: FungibleAsset,
-    ) acquires Pool {
+        _receipt: FlashSwapReceipt,
+        _offer_coin: FungibleAsset,
+    )  {
         abort 0
     }
 
@@ -498,9 +482,9 @@ module tucana_clmm::pool {
     /// Returns
     ///     the return asssets
     public fun collect_protocol_fee(
-        manager: &signer,
-        pool: Object<Pool>,
-    ): (FungibleAsset, FungibleAsset) acquires Pool {
+        _manager: &signer,
+        _pool: Object<Pool>,
+    ): (FungibleAsset, FungibleAsset)  {
         abort 0
     }
 
@@ -513,12 +497,12 @@ module tucana_clmm::pool {
     /// Returns
     ///     Null
     public fun initialize_rewarder(
-        manager: &signer,
-        pool: Object<Pool>,
-        metadata: Object<Metadata>,
-        emission_per_second: u128,
-        end_time: u64
-    ) acquires Pool {
+        _manager: &signer,
+        _pool: Object<Pool>,
+        _metadata: Object<Metadata>,
+        _emission_per_second: u128,
+        _end_time: u64
+    )  {
         abort 0
     }
 
@@ -532,12 +516,12 @@ module tucana_clmm::pool {
     /// Returns
     ///     Null
     public fun update_emission(
-        manager: &signer,
-        pool: Object<Pool>,
-        metadata: Object<Metadata>,
-        emissions_per_second: u128,
-        end_time: u64
-    ) acquires Pool {
+        _manager: &signer,
+        _pool: Object<Pool>,
+        _metadata: Object<Metadata>,
+        _emissions_per_second: u128,
+        _end_time: u64
+    )  {
         abort 0
     }
 
@@ -548,10 +532,10 @@ module tucana_clmm::pool {
     /// Returns
     ///     Null
     public fun update_position_uri(
-        manager: &signer,
-        pool: Object<Pool>,
-        uri: String,
-    ) acquires Pool {
+        _manager: &signer,
+        _pool: Object<Pool>,
+        _uri: String,
+    )  {
         abort 0
     }
 
@@ -562,10 +546,10 @@ module tucana_clmm::pool {
     /// Returns
     ///     Null
     public fun update_fee_rate(
-        manager: &signer,
-        pool: Object<Pool>,
-        fee_rate: u64,
-    ) acquires Pool {
+        _manager: &signer,
+        _pool: Object<Pool>,
+        _fee_rate: u64,
+    )  {
         abort 0
     }
 
@@ -577,9 +561,9 @@ module tucana_clmm::pool {
     /// Returns
     ///     Null
     public fun pause(
-        manager: &signer,
-        pool: Object<Pool>,
-    ) acquires Pool {
+        _manager: &signer,
+        _pool: Object<Pool>,
+    )  {
         abort 0
     }
 
@@ -589,24 +573,24 @@ module tucana_clmm::pool {
     /// Returns
     ///     Null
     public fun unpause(
-        manager: &signer,
-        pool: Object<Pool>,
-    ) acquires Pool {
+        _manager: &signer,
+        _pool: Object<Pool>,
+    )  {
         abort 0
     } 
 
     public fun get_rewards_in_tick_range(
-        pool: &Pool,
-        tick_lower_index: I32,
-        tick_upper_index: I32,
+        _pool: &Pool,
+        _tick_lower_index: I32,
+        _tick_upper_index: I32,
     ): vector<u128> {
         abort 0
     }
 
     public fun get_fee_rewards_in_tick_range(
-        pool: &Pool,
-        tick_lower_index: I32,
-        tick_upper_index: I32,
+        _pool: &Pool,
+        _tick_lower_index: I32,
+        _tick_upper_index: I32,
     ): (u128, u128, vector<u128>) {
         abort 0
     }
@@ -619,8 +603,8 @@ module tucana_clmm::pool {
     ///     - `amount_a`
     ///     - `amount_b`
     public fun get_position_amounts(
-        position_nft: Object<PositionNft>,
-    ): (u64, u64) acquires Pool {
+        _position_nft: Object<PositionNft>,
+    ): (u64, u64)  {
         abort 0
     }
 
@@ -634,15 +618,15 @@ module tucana_clmm::pool {
     ///     - `fee_a` The fee amount of `CoinTypeA`
     ///     - `fee_b` The fee amount of `CoinTypeB`
     public fun calculate_fee(
-        position_nft: Object<PositionNft>,
-    ): (u64, u64) acquires Pool {
+        _position_nft: Object<PositionNft>,
+    ): (u64, u64)  {
         abort 0
     }
 
     #[view]
     public fun calculate_rewards(
-        position_nft: Object<PositionNft>,
-    ): vector<u64> acquires Pool {
+        _position_nft: Object<PositionNft>,
+    ): vector<u64>  {
         abort 0
     }
 
@@ -655,191 +639,191 @@ module tucana_clmm::pool {
     ///     - `by_amount_in` A flag used to determine whether next arg `amount` represents input or output.
     ///     - `amount` You want to fix the value of the input or output of a swap pre-calculation.
     public fun calculate_swap_result(
-        pool: Object<Pool>,
-        a2b: bool,
-        by_amount_in: bool,
-        amount: u64,
-    ): CalculatedSwapResult acquires Pool {
+        _pool: Object<Pool>,
+        _a2b: bool,
+        _by_amount_in: bool,
+        _amount: u64,
+    ): CalculatedSwapResult  {
         abort 0
     }
 
     /// Get the liquidity by amount
     public fun get_liquidity_from_amount(
-        lower_index: I32,
-        upper_index: I32,
-        current_tick_index: I32,
-        current_sqrt_price: u128,
-        amount: u64,
-        is_fixed_a: bool
+        _lower_index: I32,
+        _upper_index: I32,
+        _current_tick_index: I32,
+        _current_sqrt_price: u128,
+        _amount: u64,
+        _is_fixed_a: bool
     ): (u128, u64, u64) {
         abort 0
     }
 
     /// Get the coin amount by liquidity
     public fun get_amount_by_liquidity(
-        tick_lower: I32,
-        tick_upper: I32,
-        current_tick_index: I32,
-        current_sqrt_price: u128,
-        liquidity: u128,
-        round_up: bool
+        _tick_lower: I32,
+        _tick_upper: I32,
+        _current_tick_index: I32,
+        _current_sqrt_price: u128,
+        _liquidity: u128,
+        _round_up: bool
     ): (u64, u64) {
         abort 0
     }
 
     #[view]
-    public fun fetch_ticks(pool: Object<Pool>, start: vector<u32>, limit: u64): vector<Tick> acquires Pool {
+    public fun fetch_ticks(_pool: Object<Pool>, _start: vector<u32>, _limit: u64): vector<Tick>  {
         abort 0
     }
 
-    public fun borrow_tick(pool: Object<Pool>, tick_idx: I32): Tick acquires Pool {
+    public fun borrow_tick(_pool: Object<Pool>, _tick_idx: I32): Tick  {
         abort 0
     }
 
     // =============== Getter Methods =================
 
     #[view]
-    public fun pool_metadata_from_address(pair_addr: address): (Object<Metadata>, Object<Metadata>) acquires Pool {
+    public fun pool_metadata_from_address(_pair_addr: address): (Object<Metadata>, Object<Metadata>)  {
         abort 0
     }
 
     #[view]
-    public fun pool_metadata(pair: Object<Pool>): (Object<Metadata>, Object<Metadata>) acquires Pool {
+    public fun pool_metadata(_pair: Object<Pool>): (Object<Metadata>, Object<Metadata>)  {
         abort 0
     }
 
     #[view]
-    public fun tick_spacing(pool: Object<Pool>): u32 acquires Pool {
+    public fun tick_spacing(_pool: Object<Pool>): u32  {
         abort 0
     }
 
     #[view]
-    public fun fee_rate(pool: Object<Pool>): u64 acquires Pool {
+    public fun fee_rate(_pool: Object<Pool>): u64  {
         abort 0
     }
 
     #[view]
-    public fun liquidity(pool: Object<Pool>): u128 acquires Pool {
+    public fun liquidity(_pool: Object<Pool>): u128  {
         abort 0
     }
 
     #[view]
-    public fun current_sqrt_price(pool: Object<Pool>): u128 acquires Pool {
+    public fun current_sqrt_price(_pool: Object<Pool>): u128 {
         abort 0
     }
 
     #[view]
-    public fun current_tick_index(pool: Object<Pool>): I32 acquires Pool {
+    public fun current_tick_index(_pool: Object<Pool>): I32 {
         abort 0
     }
 
     #[view]
-    public fun collection(pool: Object<Pool>): Object<PositionNftCollection> acquires Pool {
+    public fun collection(_pool: Object<Pool>): Object<PositionNftCollection>  {
         abort 0
     }
 
     #[view]
-    public fun protocol_fee(pool: Object<Pool>): (u64, u64) acquires Pool {
+    public fun protocol_fee(_pool: Object<Pool>): (u64, u64)  {
         abort 0
     }
 
     #[view]
-    public fun balances(pool: Object<Pool>): (u64, u64) acquires Pool {
+    public fun balances(_pool: Object<Pool>): (u64, u64)  {
         abort 0
     }
 
-    public fun fees_growth_global(pool: Object<Pool>): (u128, u128) acquires Pool {
+    public fun fees_growth_global(_pool: Object<Pool>): (u128, u128)  {
         abort 0
     }
 
-    public fun is_pause(pool: Object<Pool>): bool acquires Pool {
+    public fun is_pause(_pool: Object<Pool>): bool  {
         abort 0
     }
 
     /// Get the swap pay amount
-    public fun swap_pay_amount(receipt: &FlashSwapReceipt): u64 {
+    public fun swap_pay_amount(_receipt: &FlashSwapReceipt): u64 {
         abort 0
     }
 
     /// Get the ref fee amount
-    public fun ref_fee_amount(receipt: &FlashSwapReceipt): u64 {
+    public fun ref_fee_amount(_receipt: &FlashSwapReceipt): u64 {
         abort 0
     }
 
-    public fun calculated_swap_result_amount_out(calculatedSwapResult: &CalculatedSwapResult): u64 {
+    public fun calculated_swap_result_amount_out(_calculatedSwapResult: &CalculatedSwapResult): u64 {
         abort 0
     }
 
-    public fun calculated_swap_result_is_exceed(calculatedSwapResult: &CalculatedSwapResult): bool {
+    public fun calculated_swap_result_is_exceed(_calculatedSwapResult: &CalculatedSwapResult): bool {
         abort 0
     }
 
-    public fun calculated_swap_result_amount_in(calculatedSwapResult: &CalculatedSwapResult): u64 {
+    public fun calculated_swap_result_amount_in(_calculatedSwapResult: &CalculatedSwapResult): u64 {
         abort 0
     }
 
-    public fun calculated_swap_result_after_sqrt_price(calculatedSwapResult: &CalculatedSwapResult): u128 {
+    public fun calculated_swap_result_after_sqrt_price(_calculatedSwapResult: &CalculatedSwapResult): u128 {
         abort 0
     }
 
-    public fun calculated_swap_result_current_sqrt_price(calculatedSwapResult: &CalculatedSwapResult): u128 {
+    public fun calculated_swap_result_current_sqrt_price(_calculatedSwapResult: &CalculatedSwapResult): u128 {
         abort 0
     }
 
-    public fun calculated_swap_result_fee_amount(calculatedSwapResult: &CalculatedSwapResult): u64 {
+    public fun calculated_swap_result_fee_amount(_calculatedSwapResult: &CalculatedSwapResult): u64 {
         abort 0
     }
 
-    public fun calculated_swap_result_fee_rate(calculatedSwapResult: &CalculatedSwapResult): u64 {
+    public fun calculated_swap_result_fee_rate(_calculatedSwapResult: &CalculatedSwapResult): u64 {
         abort 0
     }
 
-    public fun calculated_swap_result_ref_fee_amount(calculatedSwapResult: &CalculatedSwapResult): u64 {
+    public fun calculated_swap_result_ref_fee_amount(_calculatedSwapResult: &CalculatedSwapResult): u64 {
         abort 0
     }
 
     public fun calculate_swap_result_step_results(
-        calculatedSwapResult: &CalculatedSwapResult
+        _calculatedSwapResult: &CalculatedSwapResult
     ): &vector<SwapStepResult> {
         abort 0
     }
 
-    public fun calculated_swap_result_steps_length(calculatedSwapResult: &CalculatedSwapResult): u64 {
+    public fun calculated_swap_result_steps_length(_calculatedSwapResult: &CalculatedSwapResult): u64 {
         abort 0
     }
 
     public fun calculated_swap_result_step_swap_result(
-        calculatedSwapResult: &CalculatedSwapResult,
-        index: u64
+        _calculatedSwapResult: &CalculatedSwapResult,
+        _index: u64
     ): &SwapStepResult {
         abort 0
     }
 
-    public fun step_swap_result_amount_in(stepSwapResult: &SwapStepResult): u64 {
-        return stepSwapResult.amount_in
+    public fun step_swap_result_amount_in(_stepSwapResult: &SwapStepResult): u64 {
+        return _stepSwapResult.amount_in
     }
 
-    public fun step_swap_result_amount_out(stepSwapResult: &SwapStepResult): u64 {
-        return stepSwapResult.amount_out
+    public fun step_swap_result_amount_out(_stepSwapResult: &SwapStepResult): u64 {
+        return _stepSwapResult.amount_out
     }
 
-    public fun step_swap_result_fee_amount(stepSwapResult: &SwapStepResult): u64 {
-        return stepSwapResult.fee_amount
+    public fun step_swap_result_fee_amount(_stepSwapResult: &SwapStepResult): u64 {
+        return _stepSwapResult.fee_amount
     }
 
-    public fun step_swap_result_current_sqrt_price(stepSwapResult: &SwapStepResult): u128 {
-        return stepSwapResult.current_sqrt_price
+    public fun step_swap_result_current_sqrt_price(_stepSwapResult: &SwapStepResult): u128 {
+        return _stepSwapResult.current_sqrt_price
     }
 
-    public fun step_swap_result_target_sqrt_price(stepSwapResult: &SwapStepResult): u128 {
-        return stepSwapResult.target_sqrt_price
+    public fun step_swap_result_target_sqrt_price(_stepSwapResult: &SwapStepResult): u128 {
+        return _stepSwapResult.target_sqrt_price
     }
 
-    public fun step_swap_result_current_liquidity(stepSwapResult: &SwapStepResult): u128 {
-        return stepSwapResult.current_liquidity
+    public fun step_swap_result_current_liquidity(_stepSwapResult: &SwapStepResult): u128 {
+        return _stepSwapResult.current_liquidity
     }
 
-    public fun step_swap_result_remainder_amount(stepSwapResult: &SwapStepResult): u64 {
-        return stepSwapResult.remainder_amount
+    public fun step_swap_result_remainder_amount(_stepSwapResult: &SwapStepResult): u64 {
+        return _stepSwapResult.remainder_amount
     }
 }

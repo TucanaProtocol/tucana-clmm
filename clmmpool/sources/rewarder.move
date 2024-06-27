@@ -1,5 +1,4 @@
 // Copyright (c) Tucana Technology Limited
-
 /// `Rewarder` is the liquidity incentive module of `clmmpool`, which is commonly known as `farming`. In `clmmpool`,
 /// liquidity is stored in a price range, so `clmmpool` uses a reward allocation method based on effective liquidity.
 /// The allocation rules are roughly as follows:
@@ -13,18 +12,10 @@
 /// of time, then this position will not receive any rewards during this period of time. This is similar to the
 /// calculation of transaction fees.
 module tucana_clmm::rewarder {
-    use std::vector;
-    use std::option::{Self, Option};
-    use std::signer;
+    use std::option::{Option};
 
-    use initia_std::block;
-    use initia_std::event;
     use initia_std::fungible_asset::{Metadata, FungibleAsset};
-    use initia_std::object::{Self, Object, ExtendRef, object_address};
-    use initia_std::primary_fungible_store;
-
-    use tucana_std::full_math_u128;
-    use tucana_clmm::config;
+    use initia_std::object::{Object, ExtendRef};
 
     friend tucana_clmm::pool;
 
@@ -45,8 +36,8 @@ module tucana_clmm::rewarder {
 
     /// Manager the Rewards.
     struct RewarderManager has store {
-        rewarders: vector<Rewarder>,
-        last_updated_time: u64,
+        _rewarders: vector<Rewarder>,
+        _last_updated_time: u64,
     }
 
     /// Rewarder store the information of a rewarder.
@@ -54,17 +45,17 @@ module tucana_clmm::rewarder {
     /// `emissions_per_second` is the amount of reward coin emit per second.
     /// `growth_global` is Q64.X64,  is reward emited per liquidity.
     struct Rewarder has copy, drop, store {
-        reward_metadata: Object<Metadata>,
-        emissions_per_second: u128,
-        growth_global: u128,
-        released: u256,
-        harvested: u64,
-        end_time: u64
+        _reward_metadata: Object<Metadata>,
+        _emissions_per_second: u128,
+        _growth_global: u128,
+        _released: u256,
+        _harvested: u64,
+        _end_time: u64
     }
 
     /// RewarderGlobalVault Store the Rewarders Fungible Assets.
     struct RewarderGlobalVault has key, store {
-        extend_ref: ExtendRef
+        _extend_ref: ExtendRef
     }
 
     // ============= Events =================
@@ -72,14 +63,14 @@ module tucana_clmm::rewarder {
     #[event]
     /// Emit when withdraw reward.
     struct EmergentWithdrawEvent has drop, store {
-        metadata_addr: address,
-        withdraw_amount: u64,
-        after_amount: u64
+        _metadata_addr: address,
+        _withdraw_amount: u64,
+        _after_amount: u64
     }
 
     /// Add rewarder into `RewarderManager`
     /// Only support at most REWARDER_NUM rewarders.
-    public fun add_rewarder(manager: &mut RewarderManager, metadata: Object<Metadata>) {
+    public fun add_rewarder(_manager: &mut RewarderManager, _metadata: Object<Metadata>) {
         abort 0
     }
 
@@ -87,8 +78,8 @@ module tucana_clmm::rewarder {
     /// Update the last_updated_time, the growth_global of each rewarder.
     /// Settlement is needed when swap, modify position liquidity, update emission speed.
     public fun accumulate_reward(
-        manager: &mut RewarderManager,
-        liquidity: u128,
+        _manager: &mut RewarderManager,
+        _liquidity: u128,
     ) {
         abort 0
     }
@@ -104,11 +95,11 @@ module tucana_clmm::rewarder {
     ///     - `emission_per_second` The emission reward per second
     ///     - end_tiome
     public fun update_emission(
-        manager: &mut RewarderManager,
-        metadata: Object<Metadata>,
-        liquidity: u128,
-        emissions_per_second: u128,
-        end_time: u64
+        _manager: &mut RewarderManager,
+        _metadata: Object<Metadata>,
+        _liquidity: u128,
+        _emissions_per_second: u128,
+        _end_time: u64
     ) {
         abort 0
     }
@@ -116,10 +107,10 @@ module tucana_clmm::rewarder {
     /// Withdraw Reward from `RewarderGlobalVault`
     /// This method is used for claim reward in pool and emergent_withdraw.
     public(friend) fun withdraw_reward(
-        manager: &mut RewarderManager,
-        metadata: Object<Metadata>,
-        amount: u64
-    ): FungibleAsset acquires RewarderGlobalVault {
+        _manager: &mut RewarderManager,
+        _metadata: Object<Metadata>,
+        _amount: u64
+    ): FungibleAsset {
         abort 0
     }
 
@@ -130,10 +121,10 @@ module tucana_clmm::rewarder {
     ///     - `metadata`: The reward coin metadata
     ///     - `amount`: the amount of reward Balance to withdraw.
     public entry fun emergent_withdraw(
-        manager: &signer,
-        metadata: Object<Metadata>,
-        amount: u64
-    ) acquires RewarderGlobalVault {
+        _manager: &signer,
+        _metadata: Object<Metadata>,
+        _amount: u64
+    ) {
         abort 0
     }
 
@@ -145,47 +136,47 @@ module tucana_clmm::rewarder {
     }
 
     /// get the rewarders
-    public fun rewarders(manager: &RewarderManager): vector<Rewarder> {
-        manager.rewarders
+    public fun rewarders(_manager: &RewarderManager): vector<Rewarder> {
+        abort 0
     }
 
     /// get the reward_growth_globals
-    public fun rewards_growth_global(manager: &RewarderManager): vector<u128> {
+    public fun rewards_growth_global(_manager: &RewarderManager): vector<u128> {
         abort 0
     }
 
     /// get the last_updated_time
-    public fun last_update_time(manager: &RewarderManager): u64 {
-        manager.last_updated_time
+    public fun last_update_time(_manager: &RewarderManager): u64 {
+        abort 0
     }
 
     /// get the rewarder coin Type.
-    public fun reward_metadata(rewarder: &Rewarder): Object<Metadata> {
-        rewarder.reward_metadata
+    public fun reward_metadata(_rewarder: &Rewarder): Object<Metadata> {
+        abort 0
     }
 
     /// get the rewarder emissions_per_second.
-    public fun emissions_per_second(rewarder: &Rewarder): u128 {
-        rewarder.emissions_per_second
+    public fun emissions_per_second(_rewarder: &Rewarder): u128 {
+        abort 0
     }
 
     /// get the rewarder growth_global.
-    public fun growth_global(rewarder: &Rewarder): u128 {
-        rewarder.growth_global
+    public fun growth_global(_rewarder: &Rewarder): u128 {
+        abort 0
     }
 
     /// Get index of CoinType in `RewarderManager`, if not exists, return `None`
-    public fun rewarder_index(manager: &RewarderManager, metadata: Object<Metadata>): Option<u64> {
+    public fun rewarder_index(_manager: &RewarderManager, _metadata: Object<Metadata>): Option<u64> {
         abort 0
     }
 
     /// Borrow `Rewarder` from `RewarderManager`
-    public fun borrow_rewarder(manager: &RewarderManager, metadata: Object<Metadata>): &Rewarder {
+    public fun borrow_rewarder(_manager: &RewarderManager, _metadata: Object<Metadata>): &Rewarder {
         abort 0
     }
 
     /// Borrow mutable `Rewarder` from `RewarderManager
-    fun borrow_mut_rewarder(manager: &mut RewarderManager, metadata: Object<Metadata>): &mut Rewarder {
+    fun borrow_mut_rewarder(_manager: &mut RewarderManager, _metadata: Object<Metadata>): &mut Rewarder {
         abort 0
     }
 }

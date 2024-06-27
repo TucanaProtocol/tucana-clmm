@@ -1,25 +1,17 @@
+
 // Copyright (c) Tucana Technology Limited
 
 /// The factory module is provided to create and manage pools.
 /// The `Pools` is a singleton, and the `Pools` is initialized when the contract is deployed.
-
 module tucana_clmm::factory {
-
-    use std::signer;
-    use std::string::{String, length};
+    use std::string::String;
     use std::option;
 
-    use initia_std::event;
     use initia_std::fungible_asset::Metadata;
-    use initia_std::object;
-    use initia_std::object::{Object, object_address};
-    use initia_std::table::{Self, Table};
-    use tucana_clmm::position;
+    use initia_std::object::Object;
+    use initia_std::table::Table;
 
-    use tucana_clmm::pool::{Pool, pool_seed};
-    use tucana_clmm::tick_math;
-    use tucana_clmm::pool;
-    use tucana_clmm::config;
+    use tucana_clmm::pool::Pool;
 
 
     // =============== Errors =================
@@ -57,7 +49,7 @@ module tucana_clmm::factory {
 
     /// Store the Pools resource into deployed account.
     fun init_module(
-        account: &signer
+        _account: &signer
     ) {
         abort 0
     }
@@ -70,27 +62,27 @@ module tucana_clmm::factory {
     ///     - initialize_price
     ///     - uri: position uri in this pool
     public fun create_pool(
-        creator: &signer,
-        metadata_a: Object<Metadata>,
-        metadata_b: Object<Metadata>,
-        tick_spacing: u32,
-        initialize_price: u128,
-        uri: String
-    ): Object<Pool> acquires Pools {
+        _creator: &signer,
+        _metadata_a: Object<Metadata>,
+        _metadata_b: Object<Metadata>,
+        _tick_spacing: u32,
+        _initialize_price: u128,
+        _uri: String
+    ): Object<Pool> {
         abort 0
     }
 
     #[view]
     public fun get_pool(
-        metadata_a: Object<Metadata>,
-        metadata_b: Object<Metadata>,
-        tick_spacing: u32
-    ): option::Option<PoolInfo> acquires Pools {
+        _metadata_a: Object<Metadata>,
+        _metadata_b: Object<Metadata>,
+        _tick_spacing: u32
+    ): option::Option<PoolInfo> {
         abort 0
     }
 
     #[view]
-    public fun get_by_id(pool: address): PoolInfo acquires Pools {
+    public fun get_by_id(_pool: address): PoolInfo {
         abort 0
     }
 }
