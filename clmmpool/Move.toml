@@ -4,7 +4,7 @@ version = "0.0.0"
 
 [dependencies]
 InitiaStdlib = { git = "https://github.com/initia-labs/movevm.git", subdir = "precompile/modules/initia_stdlib", rev = "main" }
-TucanaStdlib = { local = "../../tucana-stdlib" }
+TucanaStdlib = { git = "https://github.com/TucanaProtocol/tucana-stdlib.git", rev = "initiation-1" }
 
 [addresses]
 std = "0x1"

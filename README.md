@@ -11,5 +11,5 @@
 initiation-1:
 
 ```
-TucanaClmm = { git = "https://github.com/TucanaProtocol/tucana-clmm.git", rev = "initiation-1" }
+TucanaClmm = { git = "https://github.com/TucanaProtocol/tucana-clmm.git", subdir = "clmmpool", rev = "initiation-1" }
 ```
